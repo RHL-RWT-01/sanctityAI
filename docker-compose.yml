@@ -9,5 +9,14 @@ services:
     ports: ["5432:5432"]
     volumes: [pgdata:/var/lib/postgresql/data]
 
+  backend:
+    build: ./comment-app
+    container_name: backend
+    depends_on:
+      - db
+    ports: ["8000:8000"]
+    environment:
+      - DATABASE_URL: postgres://postgres:password@db:5432/comments
+
 volumes:
   pgdata:
